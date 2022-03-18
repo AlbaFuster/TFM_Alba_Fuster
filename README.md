@@ -62,4 +62,13 @@ m <- 200 # El numero de puntos que quieras muestrear
 q_random <- 0.3 # La proporcion que extraemos de la biomasa total
 q_pref <- 0.6 # La prorpocion que extraemos de la biomasa total
 ```
+## Como reproducir los resultados del TFM
+          
+1. Descargar datos:
+
+```
+https://drive.google.com/drive/folders/13A5qBopPC1TzA692cobuipsvrmpwQIkc?usp=sharing
+```
+2. Ir descargando los scripts de las carpetas ordenados de la B-E (en el A podeis ver los parámetros con los que se ha simulado el banco de datos del paso anterior). Al finalizar cada script guardar el RData y cargarlo en el siguiente script. 
+          
 </p>
