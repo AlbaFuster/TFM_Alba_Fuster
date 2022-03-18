@@ -2,15 +2,17 @@
 
 ## Introducción 
 <p align="justify">
-En este repositorio se introduce un ejemplo a la simulación de un modelo espacio-temporal donde la variable simulada es la biomasa real de una especie de interés pesquero. La modelización de la variable biomasa será con una distribución Gamma cuya media irá enlazada a un predictor de lineal con el logaritmo. Dicho predictor lineal incluirá un intercepto, una covariable que represente la batimetría y una efecto espacio-temporal. Una vez simulada la biomasa se seleccionaran una serie de puntos de dos formas distintas: (1) muestreo aleatorio y (2) muestreo preferencial. A continuación, con los puntos seleccionados se obtendrán las variables respuestas para ajustar los modelos: (II) biomasa relativa para campañas y (II) capturas por unidad de esfuerzo para las pesquerías.  Ambas variables serán ajustados de forma diferente. La simulación del modelo se ha automatizado de manera que únicamente se han de fijar una serie de parámetros y tendremos un report con los bancos de datos que se han generado con la simulación. A continuación se procede a ajustar un modelo espacio temporal del que obtendremos un serie de biomasa relativa a través de la predicción. 
+En este repositorio se introduce un ejemplo a la simulación de un modelo espacio-temporal donde la variable simulada es la biomasa real de una especie de interés pesquero. La modelización de la variable biomasa será con una distribución Gamma cuya media irá enlazada a un predictor de lineal con el logaritmo. Dicho predictor lineal incluirá un intercepto, una covariable que represente la batimetría, una efecto espacial correlado y una tendencia temporal. Una vez simulada la biomasa se seleccionaran una serie de puntos de dos formas distintas: (1) muestreo aleatorio y (2) muestreo preferencial. A continuación, con los puntos seleccionados se obtendrán las variables respuestas para ajustar los modelos: (II) biomasa relativa para campañas oceanográficas y (II) capturas por unidad de esfuerzo (CPUE) para la actividad pesquera. Para ambas variables se plantean distintas modelizaciones.
+
+La simulación del modelo se ha automatizado de manera que únicamente se han de fijar una serie de parámetros la biomasa simulada en el espacio-tiempo y los bancos de datos con los índices de biomasa relativa derivados de campañas oceanográficas (muestreo independiente de la pesca) y lo índices CPUE derivados de la actividad pesquera (muestreo dependiente de la pesca). A continuación, procedemos a inferir y predecir los parámetros de distintas modelizaciones desde la perspectiva frecuentista y bayesiana.
   
-En resumen, este repositorio está compuesto por tres carpetas principales: (1) simulacion, donde se han elaborado una serie de funciones para automatizar la simulación de un escenario real de biomasa y muestreo, (2) ajuste de un modelo geostadístico, se trata de un script con el ajuste de un modelo espacio-temporal así como la predicción de la biomasa en todo el campo, (3) una última carpeta contiune los inputs necesario para ajustar un modelo de stock assesment. 
+En resumen, este repositorio está compuesto por tres carpetas principales: (1) simulacion, donde se han elaborado una serie de funciones para automatizar la simulación de un escenario real de biomasa y muestreo, (2) ajuste de modelos, se trata de una serie de scripts con el ajuste y la predicción de GLMs, GAMs, modelos geostadísticos y un modelo de patrón puntual marcado o preferencial, (3) una última carpeta contiune el código para ajustar los modelos SPiCT de producción excedentaria (evaluación del stock pesquero). 
 </p>
 
 ## Requisitos 
 
 <p align="justify">
-Para el correcto funcionamiento del repositorio es necesario tener instalado R-INLA y los siguientes paquetes.
+Para el correcto funcionamiento del repositorio es necesario tener instalado R-INLA, inlabru, SPiCT y los siguientes paquetes.
 
 1. Instalar R-INLA (en caso de problemas con la instalación acceder a [r-inla.org](https://www.r-inla.org/)):
 
@@ -19,14 +21,29 @@ install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-dow
 
 install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/testing"), dep=TRUE)
 ```
+  
+2. Instalar inlabru (en caso de problemas con la instalación acceder a [inlabru](https://sites.google.com/inlabru.org/inlabru)):
 
-2. Instalar paquetes:
-
-```  
-install. packages(c("lattice","gridExtra", "RColorBrewer", "raster", "fields", "reshape", "ggplot2")) 
+```
+remotes::install_github("inlabru-org/inlabru")
 ```
   
-3. Parámetros a fijar: la elección de estos parámetros depende del usuario
+3. Instalar SPiCT (en caso de problemas con la instalación acceder a [SPiCT](https://github.com/DTUAqua/spict)):
+
+```
+install.packages("TMB", type="source")
+
+library(remotes)
+install_github("DTUAqua/spict/spict")  
+```
+
+4. Instalar paquetes:
+
+```  
+install. packages(c("lattice","gridExtra", "RColorBrewer", "raster", "fields", "reshape", "ggplot2", "mgcv", "R2BayesX", "tidyverse", "INLAutils", "devtools", "rgdal", "Metrics", "MLmetrics", "knitr", "formatR", "ellipse", "corrplot2", "icesAdvice")) 
+```
+  
+5. Parámetros a fijar: la elección de estos parámetros depende del usuario
 
 ```
 coord1 <- 0 # Coordenadas a fijar
