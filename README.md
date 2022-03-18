@@ -57,7 +57,17 @@ k <- 10 # k indica el numero de anyos
 beta_0 <- 5.5 # Valor del intercepto
 beta_1 <- -1.5 # Valor del termino de grado uno de la batimetria
 beta_2 <- -1 # Valor del termino de grado dos de la batimetria
-phi <- 1 # valor de phi (dispersion)
+vector_tiempo <- c(1, # año y el valor del parámetro alpha
+                   1.5,
+                   1.6,
+                   1.8,
+                   2.2,
+                   2.4,
+                   2.8,
+                   2.5,
+                   2.2,
+		   2) # vector para la tendencia en el tiempo
+bg <- 1 # valor de phi (dispersion)
 m <- 200 # El numero de puntos que quieras muestrear
 q_random <- 0.3 # La proporcion que extraemos de la biomasa total
 q_pref <- 0.6 # La prorpocion que extraemos de la biomasa total
