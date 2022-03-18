@@ -6,6 +6,9 @@
 # Alba Fuster-Alonso             #
 #*********************************
 
+# Cargar datos ---------------------------
+load("./A-Simulacion/datos_simulados.RData")
+
 # Paquetes ---------------------------
 library(INLA)
 library(raster)
@@ -207,3 +210,6 @@ m_prj_975 <- lapply(1:k, function(j) {
   )
   return(r_975)
 })
+
+# Guardar modelos ---------------------------
+save.image("./B-Modelos/geostadistico_aleatorio.RData")

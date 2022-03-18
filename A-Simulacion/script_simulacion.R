@@ -15,11 +15,8 @@ library(RColorBrewer)
 library(raster)
 library(ggplot2)
 
-# Directorio ---------------------------
-getwd()
-
 # Funcion INLA termino espacio-temporal ---------------------------
-source("./simulacion/funcion.R")
+source("./A-Simulacion/funcion.R")
 
 # Parametros a fijar ---------------------------
 coord1 <- 0 # Coordenadas a fijar
@@ -251,4 +248,4 @@ data_pref_final <- muestreo_preferencial(m, q_pref)
 
 
 # RData --------------------------- 
-save.image(file = "./simulacion/simulacion_biomasa_prueba.RData")
+save.image(file = "./A-Simulacion/datos_simulados.RData")

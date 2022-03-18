@@ -1,10 +1,13 @@
 #*********************************
-# GLM Y GAM		         #
+# GLM Y GAM		                   #
 # Índices CPUE                   #
 # Muestreo preferencial          #
 #*********************************
 # Alba Fuster-Alonso             #
 #*********************************
+
+# Cargar datos ---------------------------
+load("./A-Simulacion/datos_simulados.RData")
 
 # Paquetes ---------------------------
 library(mgcv)
@@ -100,5 +103,10 @@ modelo_gam_r_R2 <- bayesx(CPUE ~ sx(batimetria) + sx(xcoord, ycoord, bs = "te") 
 
 ### Predicdata_gam_r_R2_predcion ---------------------------
 modelo_gam_r_R2_pred <- predict(modelo_gam_r_R2, type = "response")
- <- data.frame(media_bio = as.vector(modelo_gam_r_R2_pred),
+data_gam_r_R2_pred <- data.frame(media_bio = as.vector(modelo_gam_r_R2_pred),
                                  tiempo = rep(1:10, each = 100))
+
+# Cargar modelos ---------------------------
+save.image("./B-Modelos/GLM_GAM_preferencial.RData")
+
+

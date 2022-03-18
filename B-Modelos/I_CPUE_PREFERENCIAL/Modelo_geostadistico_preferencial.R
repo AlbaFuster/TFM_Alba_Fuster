@@ -6,6 +6,9 @@
 # Alba Fuster-Alonso             #
 #*********************************
 
+# Cargar datos ---------------------------
+load("./A-Simulacion/datos_simulados.RData")
+
 # Paquetes ---------------------------
 library(INLA)
 library(raster)
@@ -21,8 +24,6 @@ mesh <- inla.mesh.2d(
   max.edge = c(0.63, 2.5), # Parametros del mesh
   cutoff = 0.05
 )
-
-
 
 # Banco de datos prediccion ---------------------------
 data_bat <- data.frame(x = loc_xy[, 1], y = loc_xy[, 2], z = variables$x_bat1)
@@ -204,3 +205,6 @@ m_prj_975 <- lapply(1:k, function(j) {
   )
   return(r_975)
 })
+
+# Guardar modelos ---------------------------
+save.image("./B-Modelos/geostadistico_preferencial.RData")
