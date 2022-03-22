@@ -19,19 +19,15 @@ data_random_final <- data_random_final[, -1] # Quitar la biomasa simulada
 # Mesh ---------------------------
 loc <- cbind(data_random_final$xcoord, data_random_final$ycoord) # Localizaciones
 
-bound <- inla.nonconvex.hull(loc) # Limite
-
 mesh <- inla.mesh.2d(
-  boundary = bound, # Limite
+  loc.domain = cbind(c(0,10,10,0,0),c(0,0,10,10,0)), # Limite
   max.edge = c(0.63, 2.5), # Parametros del mesh
   cutoff = 0.05
 )
 
 # Banco de datos prediccion ---------------------------
 data_bat <- data.frame(x = loc_xy[, 1], y = loc_xy[, 2], z = variables$x_bat1)
-
 ras_bat <- rasterFromXYZ(data_bat) # Convertir batimetria en raster
-
 bat_pred <- extract(ras_bat, mesh$loc[, c(1, 2)]) # Extraer valores del mesh
 
 data_pred <- data.frame(batimetria = bat_pred, xcoord = mesh$loc[, 1], ycoord = mesh$loc[, 2]) # Banco de datos
@@ -148,8 +144,6 @@ modelo <- inla(formula,
   control.compute = list(waic = TRUE, cpo = TRUE, dic = TRUE),
   num.threads = 2
 )
-
-save.image(file = "modelo_geostadisico_aleatorio.RData")
 
 
 # Prediccion ---------------------------

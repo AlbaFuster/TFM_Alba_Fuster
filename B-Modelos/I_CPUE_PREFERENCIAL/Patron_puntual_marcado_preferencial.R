@@ -41,8 +41,12 @@ ips <- ipoints(boundary, mesh, group = "tiempo")
 # SPDE ---------------------------
 spde <- inla.spde2.pcmatern(mesh,
                               prior.sigma = c(1, 0.01),
-                              prior.range = c(3, 0.5)
+                              prior.range = c(4, 0.9)
 )
+
+# PC-prior rho ---------------------------
+prec.prior <- list(prec = list(param = c(0.001, 0.001)))
+h_spec <- list(rho = list(prior = "pc.cor1", param = c(0, 0.9))) # P(cor > 0 = 0.9)
 
 # Componentes ---------------------------
 cmp = ~ 
@@ -50,20 +54,20 @@ cmp = ~
   spatial(coordinates,model = spde,
                 group = tiempo,
                 ngroup = k,
-                control.group = list(model = "ar1")) +
+                control.group = list(model = "ar1", hyper = h_spec)) +
   # Copiar el efecto espacial correla para el PP con el parámetros de escalado (fixed = FALSE)
   spatialCopy(coordinates, 
               copy = "spatial",
               group = tiempo,
               ngroup = k,
-              control.group = list(model = "ar1"),
+              control.group = list(model = "ar1", hyper = h_spec),
               fixed = FALSE) +
   # Intercepto del PP
   lgcpIntercept(1) +
   # Intercepto de la CPUE
   Intercept(1) +
   # Tendencia temporal para la CPUE
-  temporal(tiempo, model = "rw1") 
+  temporal(tiempo, model = "rw1", hyper = prec.prior) 
 
 lik1 <- like(data = spdf,
              family = "gamma",

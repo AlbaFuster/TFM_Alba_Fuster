@@ -49,6 +49,9 @@ for (i in 1:k) {
 
 geo_b_bio_r <- unlist(geo_b_bio_r)
 
+# Guardar series Indices biomasa relativa ---------------------------
+save.image(file = "./C-Series_predichas/serie_aleatorio.RData")
+
 # INDICES CPUE
 ## Frecuentista ---------------------------
 ### GLM ---------------------------
@@ -100,5 +103,7 @@ for (i in 1:k) {
 
 geo_pref_b_CPUE <- unlist(geo_pref_b_CPUE)
 
+# Guardar series Indices CPUE ---------------------------
+save.image(file = "./C-Series_predichas/serie_preferencial.RData")
 
       

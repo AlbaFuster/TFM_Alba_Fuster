@@ -23,17 +23,18 @@ data_random_final$tiempo <- as.factor(data_random_final$tiempo)
 
 # Frecuentista ---------------------------
 ## GLM ---------------------------
+data_random_final$bio_relativa2 <- data_random_final$bio_relativa + 0.0001
 modelo_f_r <-
   glm(
-    bio_relativa ~ batimetria + batimetria_2 + tiempo,
+    bio_relativa2 ~ batimetria + batimetria_2 + tiempo,
     data = data_random_final,
     family = Gamma(link = "log")
   )
 
 ## Prediccion ---------------------------
 pred_glm <- predict(modelo_f_r, type = "response")
-pred_glm_intervals <-
-  predict(modelo_f_r, type = "response", se.fit = TRUE)$se.fit
+pred_glm <- pred_glm - 0.0001
+pred_glm_intervals <- predict(modelo_f_r, type = "response", se.fit = TRUE)$se.fit
 
 intervalo_upr <- pred_glm + (2 * pred_glm_intervals)
 
@@ -50,7 +51,7 @@ data_pred_glm <-
 ## GAM ---------------------------
 modelo_fgam_r <-
   gam(
-    bio_relativa ~ s(batimetria) + te(xcoord, ycoord) + tiempo,
+    bio_relativa2 ~ s(batimetria) + te(xcoord, ycoord) + tiempo,
     data = data_random_final,
     family = Gamma(link = "log")
   )
@@ -130,3 +131,4 @@ modelo_gam_r_R2_pred$tiempo <- rep(1:10, each = 100)
 
 # Guardar modelos ---------------------------
 save.image("./B-Modelos/GLM_GAM_aleatorio.RData")
+

@@ -44,11 +44,11 @@ I_sp_i <- data.frame(ObsI = geo_pref_b_CPUE, timeI = 2000:2009)
 
 # Juntar INPUTS en una lista ---------------------------
 inp <- list(
-            timeC = C_sp_i$timeC, # Anyos capturas
-            obsC = C_sp_i$obsC, # Serie de capturas
-            timeI = list(I_sp_i$timeI), # Anyos indices
-            obsI = list(I_sp_i$ObsI) # Indice CPUE
-            )
+  timeC = C_sp_i$timeC, # Anyos capturas
+  obsC = C_sp_i$obsC, # Serie de capturas
+  timeI = list(I_sp_i$timeI), # Anyos indices
+  obsI = list(I_sp_i$ObsI) # Indice CPUE
+)
 
 inp <- check.inp(inp)
 inp$dtc

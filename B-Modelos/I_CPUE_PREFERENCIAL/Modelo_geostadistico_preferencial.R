@@ -145,8 +145,6 @@ modelo <- inla(formula,
   num.threads = 2
 )
 
-save.image(file = "modelo_geostadistico_preferencial.RData")
-
 # Prediccion ---------------------------
 index.p <- inla.stack.index(stack, tag = "pred")$data
 
